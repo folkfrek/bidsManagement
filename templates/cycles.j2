@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Military - Cycles</title>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+</head>
+<body>
+<div id="wrapPage">
+    <h1>Military Assignment Manager</h1>
+<ul>
+  <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
+  <li><a href="{{ url_for('bids') }}">Bids</a></li>
+  <li><a href="{{ url_for('commanders') }}">Commanders</a></li>
+  <li><a href="{{ url_for('members') }}">Members</a></li>
+</ul>
+<br>
+<table>
+    <h3>Cycles</h3>
+    <p>Records the details of the PCS (Permanent Change of Station) cycles </p>
+    <thead>
+    <tr>
+        <th>Cycle ID</th>
+        <th>Season</th>
+        <th>Year</th>
+    </tr>
+    <tbody>
+    {% for listCycle in listsCycles %}
+    <tr>
+        <td>{{listCycle['cycleID']}}</td>
+        <td>{{listCycle['season']}}</td>
+        <td>{{listCycle['year']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+<form >
+<h4> Add members email </h4>
+  <label for="season">Season:</label>
+  <input type="text" id="season" name="season">
+  <br>
+  <label for="year">Year:</label>
+  <input type="text" id="year" name="year">
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+</body>
+</html>

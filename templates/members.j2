@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Military - Members</title>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+</head>
+<body>
+<div id="wrapPage">
+    <h1>Military Assignment Manager</h1>
+<ul>
+  <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
+  <li><a href="{{ url_for('bids') }}">Bids</a></li>
+  <li><a href="{{ url_for('commanders') }}">Commanders</a>  </li>
+  <li><a href="{{ url_for('cycles') }}">Cycles</a></li>
+
+</ul>
+<br>
+<table>
+    <h3>Members</h3>
+    <p>Records the details of the military members</p>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Cycle ID</th>
+        <th>Email</th>
+    </tr>
+    <tbody>
+    {% for listMember in listsMembers %}
+    <tr>
+        <td>{{listMember['memberID']}}</td>
+        <td>{{listMember['cycleID']}}</td>
+        <td>{{listMember['email']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+<form >
+<h4> Add members  </h4>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email">
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+</body>
+</html>

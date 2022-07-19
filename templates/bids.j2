@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>Military - Bids</title>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+</head>
+<body>
+<div id="wrapPage">
+    <h1>Military Assignment Manager</h1>
+<ul>
+  <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
+  <li><a href="{{ url_for('commanders') }}">Commanders</a></li>
+  <li><a href="{{ url_for('cycles') }}">Cycles</a></li>
+  <li><a href="{{ url_for('members') }}">Members</a></li>
+</ul>
+<br>
+<table>
+    <h3>Bids</h3>
+    <p>Records which members have bid on an assignment and which
+assignments have bid on a member </p>
+    <thead>
+    <tr>
+        <th>Bid ID</th>
+        <th>Assignment ID</th>
+        <th>Member ID</th>
+        <th>Bid by Member</th>
+        <th>Bid by Commander</th>
+    </tr>
+    <tbody>
+    {% for listBid in listsBids %}
+    <tr>
+        <td>{{listBid['bidID']}}</td>
+        <td>{{listBid['assignmentID']}}</td>
+        <td>{{listBid['memberID']}}</td>
+        <td>{{listBid['bidByMember']}}</td>
+        <td>{{listBid['bidByCommander']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+  <label for="assignmentID">Assignment ID:</label>
+  <input type="text" id="assignmentID" name="assignmentID">
+  <br>
+  <label for="memberID">Member ID:</label>
+  <input type="text" id="memberID" name="memberID">
+  <br>
+  <label for="bidByMember"> Bid by Member:</label>
+<label for="bidByMember">Yes</label>
+  <input type="radio" name="bidByMember" value="Yes">
+<label for="bidByMember">No</label> 
+<input type="radio" name="bidByMember" value="No">
+  <br>
+  <label for="bidByCommander"> Bid by Commander:</label>
+<label for="bidByCommander">Yes</label>
+  <input type="radio" name="bidByCommander" value="Yes">
+<label for="bidByCommander">No</label> 
+<input type="radio" name="bidByCommander" value="No">
+  <br>
+  <input type="submit" value="Submit">
+</div>
+</body>
+</html>

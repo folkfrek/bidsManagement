@@ -1,0 +1,48 @@
+body {
+  background: lightblue; 
+  background: gradient(top right, lightblue, silver);
+  }
+
+#wrapPage {
+      width: 500px;
+      height: 300px;
+      margin-left: -150px; /* Half of width */
+      margin-top: -50px; /* Half of height */
+      position: absolute; left: 50%; top: 20%;
+  }
+  table {
+    border: 1px solid #000000;
+  }
+  table thead tr th{
+      border-bottom: 1px solid #000000;
+  }
+  table th, table td {
+      border-left: 1px solid rgba(0,0,0,0.2);
+      border-right: 1px solid rgba(0,0,0,0.2);
+  }
+  table th, table td{ /* Added padding for better layout after collapsing */
+      padding: 4px 8px;
+  }
+  
+  body {
+    font-family: Algerian;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 1%;
+    padding: 1%;
+  }
+  li {
+    display: inline;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  a {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid #000000;
+  }
