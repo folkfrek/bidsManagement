@@ -205,10 +205,5 @@ def cycles():
   return render_template("cycles.j2", listsCycles=listsCycles)
 
 
-# app.run(host='0.0.0.0', port=81)
-# # port = int(os.environ.get('PORT', 81))
-# # app.run(port=port, debug=True)
-
-# if __name__ == "__main__":
-#     port = int(os.environ.get('PORT', 9112))
-#     app.run(port=port, debug=True)
+if __name__ == "__main__":
+    app.run()
