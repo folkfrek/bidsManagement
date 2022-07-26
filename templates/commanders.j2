@@ -9,6 +9,7 @@
 <ul>
   <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
   <li><a href="{{ url_for('bids') }}">Bids</a></li>
+  <li><a href="{{ url_for('commanders') }}">Commanders</a>  </li>
   <li><a href="{{ url_for('cycles') }}">Cycles</a></li>
   <li><a href="{{ url_for('members') }}">Members</a></li>
 </ul>
@@ -18,12 +19,14 @@
     <p>Records the details of the assignment commander or owner</p>
     <thead>
     <tr>
+        <th>Edit or Delete</th>
         <th>Commander ID</th>
         <th>Email</th>
     </tr>
     <tbody>
     {% for listCommander in listsCommanders %}
     <tr>
+        <td><button aria-setsize="3" aria-posinset="1">Edit/Delete</button></td>
         <td>{{listCommander['commanderID']}}</td>
         <td>{{listCommander['email']}}</td>
     </tr>
@@ -34,7 +37,7 @@
   <label for="email">Email:</label>
   <input type="email" id="email" name="email">
   <br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Add">
 </form>
 </div>
 </body>

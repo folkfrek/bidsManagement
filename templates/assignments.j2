@@ -7,8 +7,9 @@
 <div id="wrapPage">
     <h1>Military Assignment Manager</h1>
 <ul>
+  <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
   <li><a href="{{ url_for('bids') }}">Bids</a></li>
-  <li><a href="{{ url_for('commanders') }}">Commanders</a></li>
+  <li><a href="{{ url_for('commanders') }}">Commanders</a>  </li>
   <li><a href="{{ url_for('cycles') }}">Cycles</a></li>
   <li><a href="{{ url_for('members') }}">Members</a></li>
 </ul>
@@ -18,6 +19,7 @@
     <p>Records the details of military assignments/postings</p>
     <thead>
     <tr>
+        <th>Edit or Delete</th>
         <th>Assignment ID</th>
         <th>Commander ID</th>
         <th>Cycle ID</th>
@@ -26,6 +28,7 @@
     <tbody>
     {% for assign in listsAssignments %}
     <tr>
+        <td><button aria-setsize="3" aria-posinset="1">Edit/Delete</button></td>
         <td>{{assign['assignmentID']}}</td>
         <td>{{assign['commanderID']}}</td>
         <td>{{assign['cycleID']}}</td>
@@ -37,7 +40,7 @@
   <label for="location">Location:</label>
   <input type="text" id="location" name="location">
   <br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Add">
 </div>
 </body>
 </html>
