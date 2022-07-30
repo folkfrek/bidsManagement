@@ -6,8 +6,8 @@ body {
 #wrapPage {
       width: 500px;
       height: 300px;
-      margin-left: -150px; /* Half of width */
-      margin-top: -50px; /* Half of height */
+      margin-left: -150px; 
+      margin-top: -50px; 
       position: absolute; left: 50%; top: 20%;
   }
   table {

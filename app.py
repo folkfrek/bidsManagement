@@ -189,7 +189,7 @@ def root():
 
 @app.route('/assignments/', methods=['GET'], endpoint='assignments')
 def assignments():
-  print("HELLOOOOOOOO")
+
   return render_template("assignments.j2", listsAssignments=listsAssignments)
 
 @app.route('/bids/', methods=['GET'], endpoint='bids')
