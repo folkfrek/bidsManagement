@@ -1,21 +1,23 @@
+from multiprocessing import connection
 from flask import Flask, render_template, url_for, json, redirect, request
 # from flask import Flask, render_template, json, redirect
 # from flask_mysqldb import MySQL
 import os
 import pymysql
 from pymysql.cursors import DictCursor
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 app = Flask(__name__)
 
 def mysql():
-    load_dotenv()
+    # load_dotenv()
     host = 'x71wqc4m22j8e3ql.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
     database = 'qr4o0gbq7gjqofgs'
     username = 'p9n6cam78xno3vw6'
     password = "vnm82vo5d0ec601i"
-    conn = pymysql.connect(host=host, user=username,
+    connection = pymysql.connect(host=host, user=username,
                            password=password, database=database, cursorclass=DictCursor)
-    return conn
+    print(connection)
+    return connection
 
 
 listsMembers = [
