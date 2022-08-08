@@ -2,7 +2,20 @@ from flask import Flask, render_template, url_for, json, redirect, request
 # from flask import Flask, render_template, json, redirect
 # from flask_mysqldb import MySQL
 import os
+import pymysql
+from pymysql.cursors import DictCursor
+from dotenv import load_dotenv
 app = Flask(__name__)
+
+def mysql():
+    load_dotenv()
+    host = 'x71wqc4m22j8e3ql.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
+    database = 'qr4o0gbq7gjqofgs'
+    username = 'p9n6cam78xno3vw6'
+    password = "vnm82vo5d0ec601i"
+    conn = pymysql.connect(host=host, user=username,
+                           password=password, database=database, cursorclass=DictCursor)
+    return conn
 
 
 listsMembers = [
@@ -183,9 +196,81 @@ listsBids = [
 ]
 
 @app.route('/')
-@app.route('/members', endpoint='members')
 def root():
-    return render_template("members.j2", listsMembers=listsMembers)
+    return render_template("main.j2")
+
+# @app.route('/members', methods=["POST", "GET"], endpoint='members')
+# def root():
+#     return render_template("members.j2", listsMembers=listsMembers)
+
+@app.route('/members', methods=["POST", "GET"])
+def Members():
+    # insert a member into the bids entity
+    if request.method == "POST":
+        # fire off if user presses the Add Member button
+        if request.form.get("Add_Member"):
+            # grab user form inputs
+            cycleID = request.form["cycleID"]
+            email = request.form["email"]
+
+            query = "INSERT INTO Members (cycleID, email) VALUES (%s, %s)"
+            connection = mysql()
+            cursor = connection.cursor()        
+            cursor.execute(query, (cycleID, email))
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return redirect("/members")
+
+    if request.method == "GET":
+        # https://stackoverflow.com/questions/9845102/using-mysql-in-flask
+        query = "SELECT * FROM Members"
+        connection = mysql()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+        cursor.close()
+        connection.close()
+        return render_template("members.j2", data=data)
+
+
+# route for edit functionality, updating the attributes of a member in Members
+# similar to our delete route, we want to the pass the 'id' value of that member on button click (see HTML) via the route
+@app.route("/edit_members/<int:id>", methods=["POST", "GET"])
+def edit_members(id):
+    if request.method == "GET":
+        # mySQL query to grab the info of the member with our passed id
+        query = "SELECT * FROM Members WHERE id = %s" % (id)
+        connection = mysql()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+        cursor.close()
+        connection.close()
+
+        # render edit_members page passing our query data to the edit_members template
+        return render_template("edit_members.j2", data=data)
+
+    # meat and potatoes of our update functionality
+    if request.method == "POST":
+        # fire off if user clicks the 'Edit Member' button
+        if request.form.get("Edit_Member"):
+            # grab user form inputs
+            memberID = request.form["memberID"]
+            cycleID = request.form["cycleID"]
+            email = request.form["email"]
+
+            # no null inputs
+            query = "UPDATE Members SET Members.cycleID = %s, Members.email = %s WHERE Members.memberID = %s"
+            connection = mysql()
+            cursor = connection.cursor()        
+            cursor.execute(query, (cycleID, email, memberID))
+            connection.commit()
+            cursor.close()
+            connection.close()
+  
+            # redirect back to members page after we execute the update query
+            return redirect("/members")
 
 @app.route('/assignments/', methods=['GET'], endpoint='assignments')
 def assignments():

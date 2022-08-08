@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<title>Edit Members</title>
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing User: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in Members-->
+            <form id="editMember" action="/edit_members/{{data[0].memberID}}" method="post">
+                <legend><strong>Edit Member</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'memberID' of person to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'memberID' of the member we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].memberID}}" class="form-control" id="memberID" name="memberID" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="text" value="{{data[0].email}}" class="form-control" id="email" name="email" pattern="" required>
+
+                    <label for="cycleID">PCS Cycle:</label>
+                    <select class="form-control" id="cycleID" name="cycleID" pattern="" placeholder="" required> 
+                        <!-- Access our cycleID tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for cycleID in cycleIDs %}
+                                <!-- If the value iterated cycleID matches the value of the cycleID of member currently Editing, pre-select that option -->
+                                {% if cycleID['memberID'] == data[0].cycleID %}
+                                    <option value="{{ cycleID['memberID'] }}" selected> {{cycleID['name']}}</option>
+                                {% else %}
+                                    <option value="{{ cycleID['memberID'] }}"> {{cycleID['name']}}</option> 
+                                {% endif %}
+
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>	
+                
+                </fieldset>
+                <input type="submit" value="Edit Member" name="Edit_Member" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/members'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>
